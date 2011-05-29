@@ -1,0 +1,79 @@
+h1. DatabaseLogger Plugin
+
+Log anything in CakePHP to the database.
+
+h2. Background
+
+This is mostly a project to experiment with loggers, and perhaps provide alternatives to the ways in which I can check on my own application's errors. It's also the result of looking at how the CakePHP docs explain creating your own loggers.
+
+h2. Requirements
+
+* PHP5 For those who cannot correctly configure the plugin
+* CakePHP 1.3
+
+h2. Installation
+
+_[Manual]_
+
+# Download this: http://github.com/josegonzalez/database_logger/zipball/master
+# Unzip that download.
+# Copy the resulting folder to app/plugins
+# Rename the folder you just copied to @database_logger@
+
+_[GIT Submodule]_
+
+In your app directory type:
+<pre><code>git submodule add git://github.com/josegonzalez/database_logger.git plugins/database_logger
+git submodule init
+git submodule update
+</code></pre>
+
+_[GIT Clone]_
+
+In your plugin directory type
+<pre><code>git clone git://github.com/josegonzalez/database_logger.git database_logger</code></pre>
+
+h2. Usage
+
+You'll need to run either the migration for this plugin, the @schema.php@, or run the @schema.sql@ on your SQL database before proceeding. Note that the default schema is for a @logs@ table.
+
+To configure the plugin, setup the logger in either your @core.php@ or @bootstrap.php@ as follows:
+
+<pre><code>CakeLog::config('LOG_TYPE', array(
+	'engine' => 'DatabaseLogger.DatabaseLogger',
+	'modelName' => '@LOG_MODEL_NAME@'
+));</code></pre>
+
+The @LOG_TYPE@ can be set to anything you wish, like @lollipop@ or @default@. The @modelName@ key defaults to @Log@, and can be left off if that is desired. Note that the table name will be @logs@ in this case, as the plugin uses a simple @ClassRegistry::init()@ call to instantiate the model.
+
+h2. Options
+
+# @modelName@ : Name of the model to use for logs. Defaults to @Log@
+
+h2. Todo
+
+* Testing
+* Create a concrete model for the plugin
+* Administration panel for viewing logs
+
+h2. License
+
+Copyright (c) 2011 Jose Diaz-Gonzalez
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
