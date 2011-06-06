@@ -9,7 +9,9 @@ class DatabaseLogger extends Object {
 	var $model = null;
 
 	var $defaults = array(
-		'modelName' => 'Log',
+		'modelName' => 'DatabaseLogger.Log',
+		'datasource' => 'database_logger',
+		'table' => 'logs',
 	);
 
 /**
@@ -29,7 +31,11 @@ class DatabaseLogger extends Object {
 			throw new InvalidArgumentException("Invalid modelname");
 		}
 
-		$this->model = ClassRegistry::init($this->options['modelName']);
+		$this->model = ClassRegistry::init(array(
+			'class' => $this->options['modelName'],
+			'ds' => $this->options['datasource'],
+			'table' => $this->options['table'],
+		));
 	}
 
 /**
