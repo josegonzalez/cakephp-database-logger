@@ -52,7 +52,10 @@ class DatabaseLogger extends Object {
 
 		$data = compact('type', 'message', 'ip', 'browser', 'hostname', 'url', 'referer');
 		if (class_exists('Authsome')) {
-			$data['user_id'] = Authsome::get('id');
+			try {
+				$data['user_id'] = Authsome::get('id');
+			} catch (Exception $e) {
+			}
 		}
 
 		if (!$this->db) {
