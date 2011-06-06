@@ -70,11 +70,10 @@ class DatabaseLogger extends Object {
 
 		$debug = $this->db->fullDebug;
 		$this->db->fullDebug = false;
-
 		$this->model->create(false);
-		$result = $this->model->save($data);
-
+		$result = $this->model->save(array('Log' => $data));
 		$this->db->fullDebug = $debug;
+
 		return $result;
 	}
 
