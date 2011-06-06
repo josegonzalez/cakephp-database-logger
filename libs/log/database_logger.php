@@ -4,6 +4,8 @@ if (!class_exists('ClassRegistry')) {
 }
 class DatabaseLogger extends Object {
 
+	var $db = null;
+
 	var $model = null;
 
 	var $defaults = array(
@@ -53,8 +55,18 @@ class DatabaseLogger extends Object {
 			$data['user_id'] = Authsome::get('id');
 		}
 
+		if (!$this->db) {
+			$this->db =& $this->model->getDataSource();
+		}
+
+		$debug = $this->db->fullDebug;
+		$this->db->fullDebug = false;
+
 		$this->model->create(false);
-		return $this->model->save($data);
+		$result = $this->model->save($data);
+
+		$this->db->fullDebug = $debug;
+		return $result;
 	}
 
 }
