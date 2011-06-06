@@ -1,4 +1,7 @@
 <?php
+if (!class_exists('ClassRegistry')) {
+	App::import('Core', 'ClassRegistry');
+}
 class DatabaseLogger extends Object {
 
 	var $model = null;
