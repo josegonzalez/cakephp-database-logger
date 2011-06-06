@@ -21,8 +21,8 @@ class DatabaseLogger extends Object {
  * @return void
  */
 	function DatabaseLogger($options = array()) {
-		$this->options = array_merge($defaults, (array) $options);
-		
+		$this->options = array_merge($this->defaults, (array) $options);
+
 		if (!isset($this->options['modelName'])) {
 			throw new InvalidArgumentException("Invalid modelname");
 		}
