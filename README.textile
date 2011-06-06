@@ -37,11 +37,27 @@ h2. Usage
 
 You'll need to run either the migration for this plugin, the @schema.php@, or run the @schema.sql@ on your SQL database before proceeding. Note that the default schema is for a @logs@ table.
 
+Once this is complete, you should create a custom  database connection for the logger. This is to ensure that CakePHP's resultset isn't broken by logging mechanisms. Please note that this means you will have two connections open at any one time. Unfortunately, there is no way around this limitation due to the CakePHP @dbo_source.php@ internals. The following is an example of what you should put in your @database.php@
+
+<pre><code>
+var $database_logger = array(
+	'driver'        => 'mysql',
+	'persistent'    => false,
+	'host'          => 'localhost',
+	'login'         => 'user',
+	'password'      => 'password',
+	'database'      => 'database',
+	'prefix'        => '',
+	'encoding'      => 'utf8',
+);</code></pre>
+
 To configure the plugin, setup the logger in either your @core.php@ or @bootstrap.php@ as follows:
 
 <pre><code>CakeLog::config('LOG_TYPE', array(
 	'engine' => 'DatabaseLogger.DatabaseLogger',
-	'modelName' => '@LOG_MODEL_NAME@'
+	'modelName' => '@LOG_MODEL_NAME@',
+	'datasource' => 'database_logger',
+	'table' => 'logs',
 ));</code></pre>
 
 The @LOG_TYPE@ can be set to anything you wish, like @lollipop@ or @default@. The @modelName@ key defaults to @Log@, and can be left off if that is desired. Note that the table name will be @logs@ in this case, as the plugin uses a simple @ClassRegistry::init()@ call to instantiate the model.
