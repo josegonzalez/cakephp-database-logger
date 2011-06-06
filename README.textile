@@ -53,7 +53,6 @@ h2. Options
 h2. Todo
 
 * Testing
-* Create a concrete model for the plugin
 * Administration panel for viewing logs
 
 h2. License
